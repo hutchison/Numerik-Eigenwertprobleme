@@ -1,0 +1,172 @@
+%        File: myskript.tex
+%     Created: Do Nov 26 01:00 pm 2009 C
+% Last Change: Do Nov 26 01:00 pm 2009 C
+%
+
+\documentclass[%
+a4paper,
+%empty,		% keine Seitenzahlen
+%a5paper,	% alle weiteren Papierformat einstellbar
+11pt,		% Schriftgröße (12pt, 11pt (Standard))
+leqno,		% Nummerierung von Gleichungen links
+%fleqn,		% Ausgabe von Gleichungen linksbündig
+]
+{scrartcl}
+
+%\pagestyle{empty}
+%\pagestyle{headings}
+
+%% Deutsche Anpassungen 
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+%obligatorischer Mathekram:
+\usepackage{amssymb,amstext,dsfont,trsym,pifont}
+\usepackage[sumlimits]{amsmath}
+
+%wird hier schon für \newshadedtheorem gebraucht
+\usepackage{pstricks}
+\usepackage{framed}
+
+\usepackage[amsmath,thmmarks]{ntheorem}
+
+% meine Theoremdefinitionen:
+\theoremstyle{plain}
+\theoremheaderfont{\bfseries}
+\theorembodyfont{}
+\theoremseparator{\ }
+%\theoremprework{\hfill \rule{0.5\textwidth}{1pt} \hspace*{0.25\textwidth} }
+%\theorempostwork{\rule}
+%\theoremindent2ex
+\newtheorem{mydef}{Definition}[section]
+
+\theoremstyle{plain}
+\theoremheaderfont{\bfseries}
+\theorembodyfont{}
+\theoremsymbol{$\Box$}
+\newtheorem{mysatz}[mydef]{Satz}
+
+\usepackage{eulervm}
+
+%nützliche Extras:
+\usepackage{array,
+hhline,
+longtable,
+tabularx,
+enumerate,
+hyperref,
+color,
+setspace,
+booktabs,
+cite,
+caption,
+lineno,
+lastpage,
+algorithm,
+ulem,
+}
+
+%nötig für Querformat
+%\usepackage[landscape]{geometry}
+
+%\usepackage[left=1cm,right=1cm,top=1cm,bottom=1cm,includeheadfoot]{geometry}
+\usepackage[cm,
+%headings,
+]{fullpage}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+
+%\fancyhead[L]{}
+%\fancyhead[C]{}
+%\fancyhead[R]{\nouppercase \leftmark}
+
+\fancyfoot[L]{}
+\fancyfoot[C]{}
+\fancyfoot[RO,LE]{\thepage}
+%\fancyfoot[LE]{\thepage}
+
+%Linie oben/unten
+\renewcommand{\headrulewidth}{0.0pt}
+\renewcommand{\footrulewidth}{0.0pt}
+
+\parindent 0pt
+
+%% Packages für Grafiken & Abbildungen
+\usepackage{graphicx}
+%\usepackage{subfig}    %%Teilabbildungen in einer Abbildung
+%\usepackage{tikz}      %%TeX ist kein Zeichenprogramm
+%\usepackage[all]{xy}
+\usepackage{pst-all}
+
+\begin{document}
+
+%\pagestyle{empty} 
+
+\setcounter{section}{6}
+
+\section{Eigenwertprobleme} % (fold)
+\label{sec:Eigenwertprobleme}
+
+\textbf{Motivation:} Mechanische Eigenschwingungen, z.B. Saite oder Membran.
+
+Bewegungsgleichung ist die Wellengleichung mit der Auslenkung $u(x,t)$ an der Stelle $x$ zum Zeitpunkt $t$.\\
+
+1-D Saite:
+\[
+\frac{\partial^2 u}{\partial t^2} = C \cdot \frac{\partial^2 u}{\partial x^2}
+\]
+2-D Membran:
+\[
+\frac{\partial^2 u}{\partial t^2} = C \triangle u - C \left( \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} \right)
+\]
+jeweils mit Randberechnung wie $\left. u \right|_{\text{Rand}}=0$.\\
+
+\textbf{Diskretisierung:}
+\begin{align*}
+  y''(t) & = -Ay(t) \qquad\qquad  A \in \mathbb{R}^{n \times n} \text{ spd., } y(t) \in \mathbb{R}^n\\
+  \intertext{\textbf{stationäre Lösung:}}
+  \text{Ansatz: } y(t) & = e^{i \omega t} y \qquad \qquad y \in \mathbb{R}^n, \omega \text{ Eigenfrequenz}\\
+  \Rightarrow e^{i \omega t} (i \omega)^2 y & = -A e^{i \omega t} y\\
+  \Rightarrow Ay & = \omega^2 y = \lambda y \text{ mit } \lambda = \omega^2
+\end{align*}
+
+\subsection{Grundlagen} % (fold)
+\label{sub:Grundlagen}
+
+\begin{mydef}
+Sei $A \in \mathbb{C}^{n \times n}, x \in \mathbb{C}^n \backslash \left\{ 0 \right\}, \lambda \in \mathbb{C}$ und $Ax = \lambda x$. Dann heißt $x$ ein (Rechts-)\textbf{Eigenvektor} (EV) von $A$ zum \textbf{Eigenwert} (EW) $\lambda$ von $A$. Das Paar $(\lambda, x)$ heißt ein Eigenpaar von $A$. Die Menge aller Eigenwerte von $A$
+\[
+\sigma(A) := \left\{ \lambda \ | \ \lambda \text{ ist Eigenwert von } A \right\}
+\]
+heißt das \textbf{Spektrum} von $A$.
+\end{mydef}
+\textit{Bemerkung:}\\[-1.3cm] %rrrrreal dirrty (but who cares anyway when it looks good?!)
+\begin{align*}
+Ax = \lambda x & \Leftrightarrow (\lambda I - A)x = 0 \\
+ & \Leftrightarrow \det(\lambda I - A)=0\\
+ & \Leftrightarrow \lambda \text{ ist Nullstelle des charakteristischen Polynoms.}
+\end{align*}
+Ist $x$ ein Eigenvektor, so auch $\theta x$ mit $\theta \neq 0$. Deshalb werden Eigenvektoren oft normiert, d.h. $\| x \|_2=1$.\\
+
+\begin{mysatz}
+Das charakteristische Polynom $p_A(\lambda) = \det(\lambda I - A)$ von $A$ besitzt die eindeutige Faktorisierung
+\[
+p_A(\lambda) = (\lambda - \lambda_1)^{m_1} \cdot (\lambda - \lambda_2)^{m_2} \cdot \ldots \cdot (\lambda - \lambda_k)^{n_k}
+\]
+mit den $k$ paarweise verschiedenen Eigenwerten $\lambda_k$ von $A$ mit $m_1 + \ldots + m_k = n$.
+
+Dabei ist $m_i$ die algebraische Vielfachheit von $\lambda_i$.\newline
+
+\textbf{Beweis:} Fundamentalsatz der Algebra.
+\end{mysatz}
+
+% subsection Grundlagen (end)
+
+% section Eigenwertprobleme (end)
+
+ \end{document}
+
+
