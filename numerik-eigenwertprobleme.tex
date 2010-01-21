@@ -32,11 +32,12 @@ cite,
 caption,
 lineno,
 lastpage,
-algorithm,
+%algorithm,
 ulem,
 }
+\usepackage{arydshln}
 
-\usepackage[amsmath,thmmarks]{ntheorem}
+\usepackage[amsmath,thmmarks,thref]{ntheorem}
 % meine Theoremdefinitionen:
 % Definitionen:
 \theoremstyle{plain}
@@ -55,6 +56,13 @@ ulem,
 \theoremsymbol{$\Box$}
 \newtheorem{mysatz}[mydef]{Satz}
 
+%Bemerkungen:
+\theoremstyle{plain}
+\theoremheaderfont{\itshape}
+\theorembodyfont{}
+\theoremsymbol{}
+\newtheorem{mybem}[mydef]{Bemerkung}
+
 % Randverwaltung (entweder geometry oder =fullpage=)
 %\usepackage[left=1cm,right=1cm,top=1cm,bottom=1cm,includeheadfoot]{geometry}
 \usepackage[cm,
@@ -63,14 +71,18 @@ ulem,
 
 % die fancy-Header:
 \usepackage{fancyhdr}
+\pagestyle{fancy}
 \fancyhf{}
 
+\fancyhead{}
+\fancyfoot{}
 %\fancyhead[L]{}
 %\fancyhead[C]{}
 %\fancyhead[R]{\nouppercase \leftmark}
-\fancyfoot[L]{}
-\fancyfoot[C]{}
-\fancyfoot[RO,LE]{\thepage}
+%\fancyfoot[L]{}
+\fancyfoot[C]{\thepage}
+%\fancyfoot[OR]{\thepage}
+%\fancyfoot[LE]{\thepage}
 %Linie oben/unten
 \renewcommand{\headrulewidth}{0.0pt}
 \renewcommand{\footrulewidth}{0.0pt}
@@ -83,9 +95,7 @@ ulem,
 %\usepackage{subfig}    %%Teilabbildungen in einer Abbildung
 %\usepackage{tikz}      %%TeX ist kein Zeichenprogramm
 %\usepackage[all]{xy}
-%\usepackage{pst-all}
-
-\pagestyle{fancy}
+\usepackage{pst-all}
 
 \begin{document}
 
@@ -151,10 +161,10 @@ Dabei ist $m_i$ die algebraische Vielfachheit von $\lambda_i$.\newline
   Die \textbf{geometrische Vielfachheit} eines Eigenwertes $\lambda$ von $A$ ist die Dimension des \textbf{Nullraumes} von $\lambda I -A$.
 \end{mydef}
 
-%TODO: nummerierte Bemerkung!
+\newpage
 
+\begin{mybem}
 Die geometrische Vielfachheit ist stets kleiner oder gleich der algebraischen Vielfachheit.
-
 So besitzt der \textbf{Jordan-Block}
 \[
 J_2(0) = 
@@ -168,18 +178,17 @@ das charakteristische Polynom $\lambda^2$, so dass 0 ein Eigenwert der algebrais
 0 & 0
 \end{pmatrix}$
 vom Einheitsvektor $e_1$ ausgespannt.
-
 Die geometrische Vielfachheit des Eigenwertes 0 ist also nur 1.
 
-Allgemein gilt: Jordan-Blöcke der Dimension größer 1 besitzen kein vollständiges System aus Eigenvektoren (die Matrix besitzt einen Defekt).
-
+Allgemein gilt: Jordan-Blöcke der Dimension größer 1 besitzen kein vollständiges System aus Eigenvektoren (die Matrix besitzt einen \textit{Defekt}).
 Die Jordansche Normalform lässt sich numerisch nicht berechnen, denn die Jordan-Blöcke reagieren extrem empfindlich auf Störungen (siehe Beispiel 7.7) %TODO Referenz fixen
+\end{mybem}
 
 \textbf{Erinnerung:}
 
 Seien $A,X \in \mathbb{R}^{n \times n}$ und sei $X$ nicht-singulär. Dann ist $B=X^{-1}AX$ \textbf{ähnlich} zu $A$, die Abbildung heißt \textbf{Ähnlichkeitstransformation}.
 
-Wir suchen Ähnlichkeitstransformationen 
+Wir suchen Ähnlichkeitstransformationen der Gestalt
 \[
 X^{-1}AX = \Lambda
 \]
@@ -188,8 +197,9 @@ die $A$ auf Diagonalgestalt transformiert.
 Die Spalten von $X$ sind dann die Eigenvektoren, die Diagonalelemente von $\Lambda$ die Eigenwerte.
 
 Besonders vorteilhaft sind Ähnlichkeitstransformationen durch unitäre (orthogonale) Matrizen. Eine unitäre $n \times n$ Matrix besitzt $n^2$ Matrixelemente, die jedoch $\frac{n(n-1)}{2}$ Orthogonalitätsbedingungen und $n$ Normierungsbedingungen erfüllen.
+Dann verbleiben $n^2 - \frac{n(n-1)}{2} -n = \frac{n(n-1)}{2}$ Freiheitsgrade. 
 
-Dann verbleiben $n^2 - \frac{n(n-1)}{2} -n = \frac{n(n-1)}{2}$ Freiheitsgrade. Durch geeignete Nutzung der Freiheitsgrade erscheint es möglich, eine gegebene $n \times n$ Matrix auf Dreiecksgestalt zu transformieren, denn eine Dreiecksmatrix besitzt $\frac{n(n-1)}{2}$ Nichtnullelemente.
+Durch geeignete Nutzung der Freiheitsgrade erscheint es möglich, eine gegebene $n \times n$ Matrix auf Dreiecksgestalt zu transformieren, denn eine Dreiecksmatrix besitzt $\frac{n(n-1)}{2}$ Nichtnullelemente.  
 
 \begin{mysatz}
 (Schursche Normalform, Schur 1909)
@@ -198,12 +208,16 @@ Zu jeder komplexen Matrix $A \in \mathbb{C}^{n \times n}$ existiert eine unitär
 \[
 D = \text{diag}(\lambda_1, \ldots, \lambda_n)
 \]
-und eine (echte) obere Dreiecksmatrix mit verschwindenen Diagonalelementen, so dass $ U^H A U = D + N$ oder $A = U(D+N)U^H$
-(Dabei ist $U^H = \overline{U}^T$, die zu $U$ \uline{adjungierte} Matrix; $U$ unitär: $\Leftrightarrow U^HU = I$.)
+und eine (echte) obere Dreiecksmatrix mit verschwindenen Diagonalelementen, so dass 
+\begin{align*}
+ & U^H A U = D + N \\
+ \text{oder} \qquad & A = U(D+N)U^H
+\end{align*}
+(Dabei ist $U^H = \overline{U}^T$, die zu $U$ \uline{adjungierte} Matrix; $U$ unitär: $\Leftrightarrow U^HU = I$.)\\
 
 \textit{Bemerkung:}
 \begin{enumerate}
-    \item Der Satz von Schur ist die natürliche Verallgemeinerung des Spektralsatzes für symmetrische Matrizen, Beweis ebenso induktiv.
+    \item Der Satz von Schur ist die natürliche Verallgemeinerung des Spektralsatzes für symmetrische Matrizen; Beweis ebenso induktiv.
     \item Die Diagonalelemente von $D$ sind die Eigenwerte von $A$.
 \end{enumerate}
 \textbf{Beweis:} Induktionsanfang:
@@ -213,24 +227,79 @@ Gemäß dem Fundamentalsatz der Algebra besitzt $A \in \mathbb{C}^{n \times n}$ 
 Es gilt $Au = \lambda_1 u$ für ein $u \in \mathbb{C}^n$ mit $\| u \|_2 = 1$.
 
 Ergänze $u$ durch $u_2, \ldots, u_n$ zu einer Orthogonalbasis des $\mathbb{C}^n$ und sei
-\[
-U_1 = \left[ u, u_2, \ldots, u_n \right] \in \mathbb{C}^{n \times n}
-\]
-Dann gilt
-\[
-AU_1 = \left( \lambda_1 u, Au_2, \ldots, Au_n \right)
-\]
-und weiter
-\[
-U_1^H A U_1 = 
-\begin{pmatrix}
-\lambda_1 & x & \dots & x\\
-0 & x & \dots & x\\
+\begin{align*}
+U_1 & = \left[ u, u_2, \ldots, u_n \right] \in \mathbb{C}^{n \times n}
+\intertext{Dann gilt}
+AU_1 & = \left( \lambda_1 u, Au_2, \ldots, Au_n \right)
+\intertext{und weiter}
+U_1^H A U_1 & =
+\left(
+\begin{array}{c:ccc}
+\lambda_1 & * & \dots & *\\\hdashline
+0 & * & \dots & *\\
 \vdots & \vdots & & \vdots\\
-0 & x & \dots &  x
+0 & * & \dots &  *
+\end{array}
+\right)
+\begin{array}{c}
+1\\
+\\
+n-1\\
+\\
+\end{array}\\
+& \phantom{=} 
+\begin{array}{ccccc}
+  & \hspace{0.8em} 1 & & n-1 & 
+\end{array}
+\end{align*}
+Induktionsschluss: Argumentiere wie oben auf dem rechten unteren $(n-1) \times (n-1)$ Block
+
+\begin{center}
+%+-+-+-+-+
+% Jap, das wird als Bild eingefügt, da man sonst nicht so eine schöne Box um die rechte untere
+% Teilmatrix malen kann. So sieht's aber echt schnieke aus :)
+%+-+-+-+-+
+\begin{pspicture}(10,4.5)
+
+% zum justieren:
+%\psgrid(0,0)(10,5)
+
+\put(0,2.5){
+$
+U_i^H \dots U_1^H A U_1 \dots U_i =
+\begin{pmatrix}
+\lambda_1   & *         & \cdots    & \cdots    & \cdots    & *\\
+0           & \ddots    & \ddots    &           &           & \vdots\\
+\vdots      & \ddots    & \lambda_i & *         & \cdots    & *\\
+\vdots      &           & 0         & *         & \cdots    & *\\
+\vdots      &           & \vdots    & \vdots    &           & \vdots\\
+0           & \cdots    & 0         & *         & \cdots    & *
 \end{pmatrix}
-\]
+$
+}
+% Die Box um die Teilmatrix:
+\psframe(6.9,2.3)(8.7,0.85)
+\end{pspicture}
+\end{center}
+mit der Blockmatrix
+\begin{align*}
+U_i & = 
+\begin{pmatrix}
+1 				& 			&	& \text{0}\\
+ 				& \ddots 	& 	& \\
+ 				&			& 1\\
+\text{0} 	& 			&  	& \Large\boxed{\^U_i} 
+\end{pmatrix}
+\qquad
+\^U_i \text{ unitär}
+\end{align*}
 \end{mysatz}
+
+Für normale Matrizen lässt sich mehr zeigen:
+\[
+A \text{ normal} \Leftrightarrow A^HA = AA^H
+\]
+Zu den normalen Matrizen zählen die \textbf{hermiteschen/selbstadjungierten} Matrizen (d.h. $A^H = A$) und die reellen symmetrischen Matrizen.
 
 % subsection Grundlagen (end)
 
