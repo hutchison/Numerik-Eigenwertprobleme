@@ -147,6 +147,91 @@ Dabei ist $m_i$ die algebraische Vielfachheit von $\lambda_i$.\newline
 \textbf{Beweis:} Fundamentalsatz der Algebra.
 \end{mysatz}
 
+\begin{mydef}
+  Die \textbf{geometrische Vielfachheit} eines Eigenwertes $\lambda$ von $A$ ist die Dimension des \textbf{Nullraumes} von $\lambda I -A$.
+\end{mydef}
+
+%TODO: nummerierte Bemerkung!
+
+Die geometrische Vielfachheit ist stets kleiner oder gleich der algebraischen Vielfachheit.
+
+So besitzt der \textbf{Jordan-Block}
+\[
+J_2(0) = 
+\begin{pmatrix}
+0 & 1\\
+0 & 0
+\end{pmatrix}
+\]
+das charakteristische Polynom $\lambda^2$, so dass 0 ein Eigenwert der algebraischen Vielfachheit 2 ist. Jedoch wird der Nullraum von $OI - J_2(0) = \begin{pmatrix}
+0 & -1\\
+0 & 0
+\end{pmatrix}$
+vom Einheitsvektor $e_1$ ausgespannt.
+
+Die geometrische Vielfachheit des Eigenwertes 0 ist also nur 1.
+
+Allgemein gilt: Jordan-Blöcke der Dimension größer 1 besitzen kein vollständiges System aus Eigenvektoren (die Matrix besitzt einen Defekt).
+
+Die Jordansche Normalform lässt sich numerisch nicht berechnen, denn die Jordan-Blöcke reagieren extrem empfindlich auf Störungen (siehe Beispiel 7.7) %TODO Referenz fixen
+
+\textbf{Erinnerung:}
+
+Seien $A,X \in \mathbb{R}^{n \times n}$ und sei $X$ nicht-singulär. Dann ist $B=X^{-1}AX$ \textbf{ähnlich} zu $A$, die Abbildung heißt \textbf{Ähnlichkeitstransformation}.
+
+Wir suchen Ähnlichkeitstransformationen 
+\[
+X^{-1}AX = \Lambda
+\]
+die $A$ auf Diagonalgestalt transformiert.
+
+Die Spalten von $X$ sind dann die Eigenvektoren, die Diagonalelemente von $\Lambda$ die Eigenwerte.
+
+Besonders vorteilhaft sind Ähnlichkeitstransformationen durch unitäre (orthogonale) Matrizen. Eine unitäre $n \times n$ Matrix besitzt $n^2$ Matrixelemente, die jedoch $\frac{n(n-1)}{2}$ Orthogonalitätsbedingungen und $n$ Normierungsbedingungen erfüllen.
+
+Dann verbleiben $n^2 - \frac{n(n-1)}{2} -n = \frac{n(n-1)}{2}$ Freiheitsgrade. Durch geeignete Nutzung der Freiheitsgrade erscheint es möglich, eine gegebene $n \times n$ Matrix auf Dreiecksgestalt zu transformieren, denn eine Dreiecksmatrix besitzt $\frac{n(n-1)}{2}$ Nichtnullelemente.
+
+\begin{mysatz}
+(Schursche Normalform, Schur 1909)
+
+Zu jeder komplexen Matrix $A \in \mathbb{C}^{n \times n}$ existiert eine unitäre Matrix $U \in \mathbb{C}^{n \times n}$, eine Diagonalmatrix 
+\[
+D = \text{diag}(\lambda_1, \ldots, \lambda_n)
+\]
+und eine (echte) obere Dreiecksmatrix mit verschwindenen Diagonalelementen, so dass $ U^H A U = D + N$ oder $A = U(D+N)U^H$
+(Dabei ist $U^H = \overline{U}^T$, die zu $U$ \uline{adjungierte} Matrix; $U$ unitär: $\Leftrightarrow U^HU = I$.)
+
+\textit{Bemerkung:}
+\begin{enumerate}
+    \item Der Satz von Schur ist die natürliche Verallgemeinerung des Spektralsatzes für symmetrische Matrizen, Beweis ebenso induktiv.
+    \item Die Diagonalelemente von $D$ sind die Eigenwerte von $A$.
+\end{enumerate}
+\textbf{Beweis:} Induktionsanfang:
+
+Gemäß dem Fundamentalsatz der Algebra besitzt $A \in \mathbb{C}^{n \times n}$ einen Eigenwert $\lambda_1 \in \mathbb{C}$.
+
+Es gilt $Au = \lambda_1 u$ für ein $u \in \mathbb{C}^n$ mit $\| u \|_2 = 1$.
+
+Ergänze $u$ durch $u_2, \ldots, u_n$ zu einer Orthogonalbasis des $\mathbb{C}^n$ und sei
+\[
+U_1 = \left[ u, u_2, \ldots, u_n \right] \in \mathbb{C}^{n \times n}
+\]
+Dann gilt
+\[
+AU_1 = \left( \lambda_1 u, Au_2, \ldots, Au_n \right)
+\]
+und weiter
+\[
+U_1^H A U_1 = 
+\begin{pmatrix}
+\lambda_1 & x & \dots & x\\
+0 & x & \dots & x\\
+\vdots & \vdots & & \vdots\\
+0 & x & \dots &  x
+\end{pmatrix}
+\]
+\end{mysatz}
+
 % subsection Grundlagen (end)
 
 % section Eigenwertprobleme (end)
