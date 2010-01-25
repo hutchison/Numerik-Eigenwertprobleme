@@ -18,27 +18,34 @@ leqno,		% Nummerierung von Gleichungen links
 \usepackage[sumlimits]{amsmath}
 \usepackage{eulervm}
 
+%nützlicher Mathekram:
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
 %nützliche Extras:
 \usepackage{array,
 hhline,
 longtable,
 tabularx,
 enumerate,
-hyperref,
+%hyperref,
 color,
 setspace,
 booktabs,
-cite,
+%cite,
 caption,
 lineno,
-lastpage,
+%lastpage,
 %algorithm,
 ulem,
 }
 \usepackage{arydshln}
 
 \usepackage[amsmath,thmmarks,thref]{ntheorem}
+
 % meine Theoremdefinitionen:
+% +------------------------+
+
 % Definitionen:
 \theoremstyle{plain}
 \theoremheaderfont{\bfseries}
@@ -62,6 +69,13 @@ ulem,
 \theorembodyfont{}
 \theoremsymbol{}
 \newtheorem{mybem}[mydef]{Bemerkung}
+
+%Beispiele:
+\theoremstyle{plain}
+\theoremheaderfont{\itshape}
+\theorembodyfont{}
+\theoremsymbol{}
+\newtheorem{mybsp}[mydef]{Beispiel}
 
 % Randverwaltung (entweder geometry oder =fullpage=)
 %\usepackage[left=1cm,right=1cm,top=1cm,bottom=1cm,includeheadfoot]{geometry}
@@ -301,6 +315,138 @@ A \text{ normal} \Leftrightarrow A^HA = AA^H
 \]
 Zu den normalen Matrizen zählen die \textbf{hermiteschen/selbstadjungierten} Matrizen (d.h. $A^H = A$) und die reellen symmetrischen Matrizen.
 
+\begin{mysatz}
+(Hermite 1850 - \textit{Spektralsatz})
+
+Ist $A \in \C^{n \times n}$ normal, so gibt es eine unitäre Matrix $U$ mit
+\[
+U^H A U = 
+\begin{pmatrix}
+\lambda_1 & & 0\\
+& \ddots & \\
+0 & & \lambda_n
+\end{pmatrix}
+=
+\text{diag}(\lambda_1,\dots,\lambda_n)
+\]
+\textbf{Beweis:}
+
+Schursche Normalform
+\begin{align*}
+U^H A U = 
+\begin{pmatrix}
+\lambda_1 & & *\\
+& \ddots & \\
+0 & & \lambda_n
+\end{pmatrix}
+=: R
+\end{align*}
+Mit $A$ ist auch $R$ normal, denn
+\begin{align*}
+RR^H & = U^H A \underbrace{(U \cdot U^H)}_{I} A^H U = U^H A^H A U\\
+ & = (U^H A^H U) U^H A U  = R^H R
+\end{align*}
+In Komponenten
+\begin{align*}
+R R^H & = 
+\begin{pmatrix}
+\lambda_1   & r_{12}    & \dots     & r_{1n}\\
+            & \ddots    & \ddots    & \vdots\\
+            &           & \ddots    & r_{n-1,n}\\
+0           &           &           & \lambda_n
+\end{pmatrix}
+\begin{pmatrix}
+\overline{\lambda_1}    & & & 0\\
+\overline{r_{12}}       & \ddots\\
+\vdots                  & \ddots & \ddots\\
+\overline{r_{1n}}       & \dots & \dots & \overline{\lambda_n}
+\end{pmatrix}\\
+& = 
+\begin{pmatrix}
+\overline{\lambda_1}    & & & 0\\
+\overline{r_{12}}       & \ddots\\
+\vdots                  & \ddots & \ddots\\
+\overline{r_{1n}}       & \dots & \dots & \overline{\lambda_n}
+\end{pmatrix}
+\begin{pmatrix}
+\lambda_1   & r_{12}    & \dots     & r_{1n}\\
+            & \ddots    & \ddots    & \vdots\\
+            &           & \ddots    & r_{n-1,n}\\
+0           &           &           & \lambda_n
+\end{pmatrix}
+= R^H R
+\end{align*}
+Also gilt komponentenweise:
+\begin{align*}
+\text{für } i=j=1: \qquad & |\lambda_1|^2 + |r_{12}|^2 + \dots + |r_{1n}|^2 = |\lambda_1|^2\\
+& \Rightarrow r_{12} = r_{13} = \dots = r_{1n} = 0\\
+\text{für } i=j=2: \qquad & |\lambda_2|^2 + |r_{23}|^2 + \dots + |r_{2n}|^2 = |\lambda_2|^2\\
+& \Rightarrow r_{23} = \dots = r_{2n} = 0 \qquad \text{ usw. usf.}
+\end{align*}
+\end{mysatz}
+
+% subsection Grundlagen (end)
+
+\subsection{Störungsempfindlichkeit des Eigenwertproblems} % (fold)
+\label{sub:Störungsempfindlichkeit des Eigenwertproblems}
+
+Die Störungsempfindlichkeit der Lösung eines LGS hängt wesentlich von der Konditionszahl
+\begin{align*}
+  \mathcal{K}(A) & = \|A\| \cdot \|A^{-1}\| \qquad \text{ab.}
+\end{align*}
+Für Eigenwertprobleme sind die Zusammenhänge komplexer, denn die Diagonalisierbarkeit (Fehlen eines Defekts) ist entscheidend.
+\begin{mybsp}\label{bspEWJordanBlock} Der Jordan-Block 
+$A = 
+\begin{pmatrix}
+2 & 1\\
+0 & 2
+\end{pmatrix}
+$
+ist nicht diagonalisierbar. 
+
+Für $\varepsilon > 0$ sei
+$A(\varepsilon) = 
+\begin{pmatrix}
+2 & 1\\
+\varepsilon & 2
+\end{pmatrix}
+$
+mit den Eigenwerten $\lambda_1(\varepsilon)=2+\sqrt{2},\ \lambda_2(\varepsilon)=2-\sqrt{2}$.
+
+Es gilt
+\begin{align*}
+\frac{d\lambda_1(\varepsilon)}{d\varepsilon} & = \frac{1}{2\sqrt{\varepsilon}} \qquad \frac{d\lambda_2(\varepsilon)}{d\varepsilon} = -\frac{1}{2\sqrt{\varepsilon}}
+\end{align*}
+also
+\begin{align*}
+\lim\limits_{\varepsilon \rightarrow 0} & \left| \frac{d \lambda_i(\varepsilon)}{d \varepsilon} \right| = \infty
+\end{align*}
+\center $\Rightarrow$ \textbf{unbeschränkte Störungsempfindlichkeit!}
+\end{mybsp}
+
+\newpage
+
+%TODO: ref fixen!
+Beispiel~\ref{bspEWJordanBlock} zeigt, dass Eigenwerte nicht stetig diff'bar von den Matrixelementen abhängen können. Man kann jedoch zeigen:
+\begin{enumerate}
+\item Eigenwerte hängen stetig von den Matrixelementen ab.
+\item Eigenvektoren können bei mehrfachen Eigenwerten unstetig von den Matrixelementen abhängen.
+\end{enumerate}
+
+Die folgenden Sätze zeigen die stetige Abhängigkeit der Eigenwerte einer Matrix von ihren Matrixelementen und liefern eine obere Schranke für die Störung der Eigenwerte.
+
+\begin{mysatz}(Elsner)
+
+Die Eigenwerte von $A \in \C^{n \times n}$ seien $\lambda_1, \dots , \lambda_n$ und ferner seien $\mu_1, \dots , \mu_n$ die Eigenwerte der gestörten Matrix $A+E$.
+
+Dann gibt es Permutationen $i=\left\{ 1,\dots,n \right\} \mapsto \left\{ 1,\dots,n \right\}$, so dass
+\begin{align*}
+|\mu_{i(j)} - \lambda_j| \leq 4\left( \|A\|_2 + \|A+E\|_2 \right)^{1-\frac{1}{n}} \|E\|_2^{\frac{1}{n}}
+\end{align*}
+\end{mysatz}
+
+% subsection Störungsempfindlichkeit des Eigenwertproblems (end)
+
 %TODO zwischenraum füllen
 
 \begin{mysatz} (Bauer-Fike, 1960)
@@ -346,16 +492,15 @@ Ist $a_{kl} \neq 0$, so setze
 \rho = \frac{a_{ll}-a{kk}}{2a_{kl}}
 \]
 Weiter sei (Rutisheimer 1971)
-\[
+\begin{align*}
 t = 
 \begin{cases}
 \frac{1}{\rho + \sqrt{1+\rho^2}} & \rho \geq 0\\
 \frac{1}{\rho - \sqrt{1+\rho^2}} & \rho < 0\\
 \end{cases}
-\]
+\end{align*}
 \end{mysatz}
 
-% subsection Grundlagen (end)
 
 % section Eigenwertprobleme (end)
 
