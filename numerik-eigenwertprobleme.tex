@@ -301,6 +301,60 @@ A \text{ normal} \Leftrightarrow A^HA = AA^H
 \]
 Zu den normalen Matrizen zählen die \textbf{hermiteschen/selbstadjungierten} Matrizen (d.h. $A^H = A$) und die reellen symmetrischen Matrizen.
 
+%TODO zwischenraum füllen
+
+\begin{mysatz} (Bauer-Fike, 1960)
+
+Ist $A$ diagonalisierbar, also
+\[
+AX = X\Lambda \qquad \text{ mit } \Lambda = \text{diag}(\lambda_1,\dots,\lambda_n)
+\]
+Sei $\mu \in \sigma(A+E)$ ein Eigenwert der gestörten Matrix $A+E$. Dann gilt
+\[
+\min\limits_{\lambda \in \sigma(A)} |\mu - \lambda| \leq \mathcal{K}_p(X) \|E\|_p
+\]
+für die $p$-Normen. Dabei bezeichnet $\mathcal{K}_p(X) = \|X\|_p \|X^{-1}\|_p$ die Kondition bzgl. der $p$-Norm oder $p$-Kondition.
+
+Beweis: Numerische Mathematik II.
+\end{mysatz}
+
+Für symmetrische Matrizen formuliert Satz 7.11 %TODO ref fixen!
+eine elementar zu beweisende Aussage. Dafür benötigen wir die folgende Fehlerabschätzung.
+
+\begin{mysatz}
+Sei $A \in \mathbb{R}^{n \times n}$ symmetrisch und sei $0 \neq x \in \mathbb{R}$ mit $\|x\|_2 = 1$ und $\mu \in \mathbb{R}$. Dann gibt es einen Eigenwert 
+$\lambda \in \sigma(A)$ mit
+\[
+\mu - \lambda \leq \|r\|_2
+\]
+mit dem Residuum $r = Ax - \mu x$.
+
+\textbf{Beweis:} Sei $\mu \notin \sigma(A)$ sonst trivial.
+\begin{align*}
+1 = \|x\|_2 & = \|(A -\mu I)^{-1} (A - \mu I)x \|_2 \\
+ & \leq \|(A - \mu I)^{-1}\|_2 \underbrace{\|(A - \mu I)\|_2}_{\|r\|_2} = \frac{1}{\min\limits_{\lambda \in \sigma(A) |\mu - \lambda|}} \|r\|_2
+\end{align*}
+\end{mysatz}
+
+%TODO Zwischenraum füllen
+
+\begin{mysatz}
+(stabiler Formelsatz zur Berechnung von $c,s$)
+
+Ist $a_{kl} \neq 0$, so setze
+\[
+\rho = \frac{a_{ll}-a{kk}}{2a_{kl}}
+\]
+Weiter sei (Rutisheimer 1971)
+\[
+t = 
+\begin{cases}
+\frac{1}{\rho + \sqrt{1+\rho^2}} & \rho \geq 0\\
+\frac{1}{\rho - \sqrt{1+\rho^2}} & \rho < 0\\
+\end{cases}
+\]
+\end{mysatz}
+
 % subsection Grundlagen (end)
 
 % section Eigenwertprobleme (end)
