@@ -3,7 +3,7 @@ a4paper,
 %empty,		% keine Seitenzahlen
 %a5paper,	% alle weiteren Papierformat einstellbar
 11pt,		% Schriftgröße (12pt, 11pt (Standard))
-leqno,		% Nummerierung von Gleichungen links
+%leqno,		% Nummerierung von Gleichungen links
 %fleqn,		% Ausgabe von Gleichungen linksbündig
 ]
 {scrartcl}
@@ -21,6 +21,7 @@ leqno,		% Nummerierung von Gleichungen links
 %nützlicher Mathekram:
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\C}{\mathbb{C}}
+\newcommand{\off}{\text{off}}
 
 %nützliche Extras:
 \usepackage{array,
@@ -123,13 +124,13 @@ ulem,
 Bewegungsgleichung ist die Wellengleichung mit der Auslenkung $u(x,t)$ an der Stelle $x$ zum Zeitpunkt $t$.\\
 
 1-D Saite:
-\[
+\begin{align*}
 \frac{\partial^2 u}{\partial t^2} = C \cdot \frac{\partial^2 u}{\partial x^2}
-\]
+\end{align*}
 2-D Membran:
-\[
+\begin{align*}
 \frac{\partial^2 u}{\partial t^2} = C \triangle u - C \left( \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} \right)
-\]
+\end{align*}
 jeweils mit Randberechnung wie $\left. u \right|_{\text{Rand}}=0$.\\
 
 \textbf{Diskretisierung:}
@@ -146,9 +147,9 @@ jeweils mit Randberechnung wie $\left. u \right|_{\text{Rand}}=0$.\\
 
 \begin{mydef}
 Sei $A \in \mathbb{C}^{n \times n}, x \in \mathbb{C}^n \backslash \left\{ 0 \right\}, \lambda \in \mathbb{C}$ und $Ax = \lambda x$. Dann heißt $x$ ein (Rechts-)\textbf{Eigenvektor} (EV) von $A$ zum \textbf{Eigenwert} (EW) $\lambda$ von $A$. Das Paar $(\lambda, x)$ heißt ein Eigenpaar von $A$. Die Menge aller Eigenwerte von $A$
-\[
+\begin{align*}
 \sigma(A) := \left\{ \lambda \ | \ \lambda \text{ ist Eigenwert von } A \right\}
-\]
+\end{align*}
 heißt das \textbf{Spektrum} von $A$.
 \end{mydef}
 \textit{Bemerkung:}\\[-1.3cm] %rrrrreal dirrty (but who cares anyway when it looks good?!)
@@ -161,9 +162,9 @@ Ist $x$ ein Eigenvektor, so auch $\theta x$ mit $\theta \neq 0$. Deshalb werden 
 
 \begin{mysatz}
 Das charakteristische Polynom $p_A(\lambda) = \det(\lambda I - A)$ von $A$ besitzt die eindeutige Faktorisierung
-\[
+\begin{align*}
 p_A(\lambda) = (\lambda - \lambda_1)^{m_1} \cdot (\lambda - \lambda_2)^{m_2} \cdot \ldots \cdot (\lambda - \lambda_k)^{n_k}
-\]
+\end{align*}
 mit den $k$ paarweise verschiedenen Eigenwerten $\lambda_k$ von $A$ mit $m_1 + \ldots + m_k = n$.
 
 Dabei ist $m_i$ die algebraische Vielfachheit von $\lambda_i$.\newline
@@ -179,14 +180,14 @@ Dabei ist $m_i$ die algebraische Vielfachheit von $\lambda_i$.\newline
 
 \begin{mybem}
 Die geometrische Vielfachheit ist stets kleiner oder gleich der algebraischen Vielfachheit.
-So besitzt der \textbf{Jordan-Block}
-\[
+So besitzt der \textbf{Jordan-Block}\footnote{benannt nach Marie Ennemond Camille Jordan (5. Januar 1838 - 21. Januar 1922), französischer Mathematiker}
+\begin{align*}
 J_2(0) = 
 \begin{pmatrix}
 0 & 1\\
 0 & 0
 \end{pmatrix}
-\]
+\end{align*}
 das charakteristische Polynom $\lambda^2$, so dass 0 ein Eigenwert der algebraischen Vielfachheit 2 ist. Jedoch wird der Nullraum von $OI - J_2(0) = \begin{pmatrix}
 0 & -1\\
 0 & 0
@@ -195,7 +196,7 @@ vom Einheitsvektor $e_1$ ausgespannt.
 Die geometrische Vielfachheit des Eigenwertes 0 ist also nur 1.
 
 Allgemein gilt: Jordan-Blöcke der Dimension größer 1 besitzen kein vollständiges System aus Eigenvektoren (die Matrix besitzt einen \textit{Defekt}).
-Die Jordansche Normalform lässt sich numerisch nicht berechnen, denn die Jordan-Blöcke reagieren extrem empfindlich auf Störungen (siehe Beispiel 7.7) %TODO Referenz fixen
+Die Jordansche Normalform lässt sich numerisch nicht berechnen, denn die Jordan-Blöcke reagieren extrem empfindlich auf Störungen (siehe Beispiel \thref{bspEWJordanBlock})
 \end{mybem}
 
 \textbf{Erinnerung:}
@@ -203,9 +204,9 @@ Die Jordansche Normalform lässt sich numerisch nicht berechnen, denn die Jordan
 Seien $A,X \in \mathbb{R}^{n \times n}$ und sei $X$ nicht-singulär. Dann ist $B=X^{-1}AX$ \textbf{ähnlich} zu $A$, die Abbildung heißt \textbf{Ähnlichkeitstransformation}.
 
 Wir suchen Ähnlichkeitstransformationen der Gestalt
-\[
+\begin{align*}
 X^{-1}AX = \Lambda
-\]
+\end{align*}
 die $A$ auf Diagonalgestalt transformiert.
 
 Die Spalten von $X$ sind dann die Eigenvektoren, die Diagonalelemente von $\Lambda$ die Eigenwerte.
@@ -216,12 +217,13 @@ Dann verbleiben $n^2 - \frac{n(n-1)}{2} -n = \frac{n(n-1)}{2}$ Freiheitsgrade.
 Durch geeignete Nutzung der Freiheitsgrade erscheint es möglich, eine gegebene $n \times n$ Matrix auf Dreiecksgestalt zu transformieren, denn eine Dreiecksmatrix besitzt $\frac{n(n-1)}{2}$ Nichtnullelemente.  
 
 \begin{mysatz}
-(Schursche Normalform, Schur 1909)
+(Schursche Normalform (auch Schur-Zerlegung), Schur\footnote{Issai Schur (10. Januar 1875 - 10. Januar 1941), hauptsächlich in Deutschland arbeitender Mathematiker} 1909)
+
 
 Zu jeder komplexen Matrix $A \in \mathbb{C}^{n \times n}$ existiert eine unitäre Matrix $U \in \mathbb{C}^{n \times n}$, eine Diagonalmatrix 
-\[
+\begin{align*}
 D = \text{diag}(\lambda_1, \ldots, \lambda_n)
-\]
+\end{align*}
 und eine (echte) obere Dreiecksmatrix mit verschwindenen Diagonalelementen, so dass 
 \begin{align*}
  & U^H A U = D + N \\
@@ -310,16 +312,15 @@ U_i & =
 \end{mysatz}
 
 Für normale Matrizen lässt sich mehr zeigen:
-\[
+\begin{align*}
 A \text{ normal} \Leftrightarrow A^HA = AA^H
-\]
+\end{align*}
 Zu den normalen Matrizen zählen die \textbf{hermiteschen/selbstadjungierten} Matrizen (d.h. $A^H = A$) und die reellen symmetrischen Matrizen.
 
-\begin{mysatz}
-(Hermite 1850 - \textit{Spektralsatz})
+\begin{mysatz} (Hermite 1850\footnote{Charles Hermite (24. Dezember 1822 - 14. Januar 1901), französischer Mathematiker} - \textit{Spektralsatz})
 
 Ist $A \in \C^{n \times n}$ normal, so gibt es eine unitäre Matrix $U$ mit
-\[
+\begin{align*}
 U^H A U = 
 \begin{pmatrix}
 \lambda_1 & & 0\\
@@ -328,7 +329,10 @@ U^H A U =
 \end{pmatrix}
 =
 \text{diag}(\lambda_1,\dots,\lambda_n)
-\]
+\end{align*}
+
+\newpage
+
 \textbf{Beweis:}
 
 Schursche Normalform
@@ -385,9 +389,7 @@ Also gilt komponentenweise:
 \end{align*}
 \end{mysatz}
 
-% subsection Grundlagen (end)
-
-\subsection{Störungsempfindlichkeit des Eigenwertproblems} % (fold)
+\subsection{Störungsempfindlichkeit des Eigenwertproblems}
 \label{sub:Störungsempfindlichkeit des Eigenwertproblems}
 
 Die Störungsempfindlichkeit der Lösung eines LGS hängt wesentlich von der Konditionszahl
@@ -419,15 +421,12 @@ Es gilt
 \end{align*}
 also
 \begin{align*}
-\lim\limits_{\varepsilon \rightarrow 0} & \left| \frac{d \lambda_i(\varepsilon)}{d \varepsilon} \right| = \infty
+\lim\limits_{\varepsilon\to0} & \left| \frac{d \lambda_i(\varepsilon)}{d \varepsilon} \right| = \infty
 \end{align*}
 \center $\Rightarrow$ \textbf{unbeschränkte Störungsempfindlichkeit!}
 \end{mybsp}
 
-\newpage
-
-%TODO: ref fixen!
-Beispiel~\ref{bspEWJordanBlock} zeigt, dass Eigenwerte nicht stetig diff'bar von den Matrixelementen abhängen können. Man kann jedoch zeigen:
+Beispiel \ref{bspEWJordanBlock} zeigt, dass Eigenwerte nicht stetig differenzierbar von den Matrixelementen abhängen können. Man kann jedoch zeigen:
 \begin{enumerate}
 \item Eigenwerte hängen stetig von den Matrixelementen ab.
 \item Eigenvektoren können bei mehrfachen Eigenwerten unstetig von den Matrixelementen abhängen.
@@ -435,63 +434,227 @@ Beispiel~\ref{bspEWJordanBlock} zeigt, dass Eigenwerte nicht stetig diff'bar von
 
 Die folgenden Sätze zeigen die stetige Abhängigkeit der Eigenwerte einer Matrix von ihren Matrixelementen und liefern eine obere Schranke für die Störung der Eigenwerte.
 
-\begin{mysatz}(Elsner)
+\begin{mysatz}(Elsner\footnote{Ludwig Elsner})
 
 Die Eigenwerte von $A \in \C^{n \times n}$ seien $\lambda_1, \dots , \lambda_n$ und ferner seien $\mu_1, \dots , \mu_n$ die Eigenwerte der gestörten Matrix $A+E$.
 
-Dann gibt es Permutationen $i=\left\{ 1,\dots,n \right\} \mapsto \left\{ 1,\dots,n \right\}$, so dass
+Dann gibt es eine Permutation $i=\left\{ 1,\dots,n \right\} \mapsto \left\{ 1,\dots,n \right\}$, so dass
 \begin{align*}
 |\mu_{i(j)} - \lambda_j| \leq 4\left( \|A\|_2 + \|A+E\|_2 \right)^{1-\frac{1}{n}} \|E\|_2^{\frac{1}{n}}
 \end{align*}
 \end{mysatz}
 
-% subsection Störungsempfindlichkeit des Eigenwertproblems (end)
-
-%TODO zwischenraum füllen
-
-\begin{mysatz} (Bauer-Fike, 1960)
+\begin{mysatz} (Bauer\footnote{Friedrich Ludwig Bauer (10. Juni 1924 in Regensburg), deutscher Mathematiker und Pionier der Informatik}-Fike, 1960)
 
 Ist $A$ diagonalisierbar, also
-\[
+\begin{align*}
 AX = X\Lambda \qquad \text{ mit } \Lambda = \text{diag}(\lambda_1,\dots,\lambda_n)
-\]
+\end{align*}
 Sei $\mu \in \sigma(A+E)$ ein Eigenwert der gestörten Matrix $A+E$. Dann gilt
-\[
+\begin{align*}
 \min\limits_{\lambda \in \sigma(A)} |\mu - \lambda| \leq \mathcal{K}_p(X) \|E\|_p
-\]
-für die $p$-Normen. Dabei bezeichnet $\mathcal{K}_p(X) = \|X\|_p \|X^{-1}\|_p$ die Kondition bzgl. der $p$-Norm oder $p$-Kondition.
+\end{align*}
+für die $p$-Normen. Dabei bezeichnet $\mathcal{K}_p(X) = \|X\|_p \|X^{-1}\|_p$ die Kondition bzgl. der $p$-Norm oder $p$-Kondition.\\
 
-Beweis: Numerische Mathematik II.
+\textbf{Beweis:} Numerische Mathematik II.
 \end{mysatz}
 
-Für symmetrische Matrizen formuliert Satz 7.11 %TODO ref fixen!
-eine elementar zu beweisende Aussage. Dafür benötigen wir die folgende Fehlerabschätzung.
+Für symmetrische Matrizen formuliert Satz \thref{satz:ewintervall} eine elementar zu beweisende Aussage. Dafür benötigen wir die folgende Fehlerabschätzung.
 
-\begin{mysatz}
+\begin{mysatz}\label{satz:ewresiduum}
 Sei $A \in \mathbb{R}^{n \times n}$ symmetrisch und sei $0 \neq x \in \mathbb{R}$ mit $\|x\|_2 = 1$ und $\mu \in \mathbb{R}$. Dann gibt es einen Eigenwert 
 $\lambda \in \sigma(A)$ mit
-\[
-\mu - \lambda \leq \|r\|_2
-\]
-mit dem Residuum $r = Ax - \mu x$.
+\begin{align*}
+|\mu - \lambda| \leq \|r\|_2
+\end{align*}
+mit dem Residuum $r = Ax - \mu x$.\\
 
 \textbf{Beweis:} Sei $\mu \notin \sigma(A)$ sonst trivial.
 \begin{align*}
-1 = \|x\|_2 & = \|(A -\mu I)^{-1} (A - \mu I)x \|_2 \\
- & \leq \|(A - \mu I)^{-1}\|_2 \underbrace{\|(A - \mu I)\|_2}_{\|r\|_2} = \frac{1}{\min\limits_{\lambda \in \sigma(A) |\mu - \lambda|}} \|r\|_2
+1 = \|x\|_2 & = \|(A -\mu I)^{-1} \cdot  (A - \mu I)x \|_2 \\
+& \leq \|(A - \mu I)^{-1}\|_2 \cdot  \underbrace{\|(A - \mu I)\|_2}_{\|r\|_2} = \frac{1}{\min\limits_{\lambda \in \sigma(A)} |\mu - \lambda|} \|r\|_2
 \end{align*}
 \end{mysatz}
 
-%TODO Zwischenraum füllen
+\begin{mysatz}\label{satz:ewintervall}
+Seien $A, A+E \in \R^{n \times n}$ symmetrische Matrizen mit
+\begin{align*}
+\| E \|_F \leq E
+\end{align*}
+Dann enthält jedes Intervall
+\begin{align*}
+\lambda - \varepsilon \leq \mu \leq \lambda + \varepsilon
+\end{align*}
+um einen Eigenwert $\lambda$ von $A$ auch einen Eigenwert $\mu$ von $A+E$ und umgekehrt.\\
+
+\textbf{Beweis:} Sei $Ax=\lambda x$ und $x \neq 0$. Dann gilt
+\begin{align*}
+\| (A+E)x - \lambda x \|_2 = \| (A+E)x - Ax \|_2 \leq \|E\|_2 \cdot \|x||_2 \leq \|E\|_F \cdot \|x\|_2
+\end{align*}
+Nach Satz \thref{satz:ewresiduum} gibt es einen Eigenwert $\mu$ von $A+E$ in einer $\varepsilon$-Umgebung von $\lambda$.
+
+Umkehrung durch Vertauschen von $A$ und $A+E$.
+\end{mysatz}
+
+\begin{mysatz}(Satz von Gerschgorin\footnote{Semjon Aranowitsch Gerschgorin (24. August 1901 - 30. Mai 1933), weißrussisch-sowjetischer Mathematiker})
+
+Sei $A \in \C^{n \times n}$ und seien komplexe Kreisscheiben \hfill (\textit{Gerschgorin-Kreise})
+\begin{align*}
+  R_i = \left\{ z \in \C; |z-a_{ii}| \leq \sum\limits_{\substack{i=1\\ i \neq j}}^n |a_{ij}| \right\}
+\end{align*}
+definiert. Dann gilt
+\begin{align*}
+\sigma(A) \subseteq \bigcup\limits_{i=1}^n R_i
+\end{align*}
+
+\textbf{Beweis:}
+Sei $(\lambda,x)$ ein beliebiges Eigenpaar von $A$. Sei $x_i$ eine Komponente größten Betrags, so dass\\
+$\forall j=1\dots n: |x_j| \leq |x_i| $. O.B.d.A. sei $x_i=1$.
+
+Dann gilt für die $i$-te Zeile von $Ax = \lambda x$
+\begin{align*}
+  a_{ii} x_i + \sum\limits_{j \neq i}^n a_{ij} x_i = \lambda \cdot x_i
+\end{align*}
+oder gleichwertig
+\begin{align*}
+  \lambda - a_{ii} = \sum\limits_{j \neq i}^n a_{ij} x_j
+\end{align*}
+Wegen $|x_j| \leq 1$ folgt
+\begin{align*}
+  |\lambda - a_{ii}| \leq \sum\limits_{j \neq i}^n |a_{ij}|
+\end{align*}
+so dass $\lambda \in \R$.
+\end{mysatz}
+
+\newpage
+
+\subsection{Jacobi-Verfahren}
+\label{sub:Jacobi-Verfahren}
+
+Ältestes numerisches Verfahren zur Lösung des symmetrischen Eigenwertproblems. Es wurde mit Jahr 1846 von Jacobi\footnote{Carl Gustav Jacob Jacobi (10. Dezember 1804 - 18. Februar 1851), deutscher Mathematiker} vorgeschlagen (Crelles Journal\footnote{\textit{Journal für die reine und angewandte Mathematik.} Gegr. im Jahre 1826 von August Leopold Crelle, de Gruyter, Berlin}) und zur Berechnung der Stabilität von Planetenbahnen einsetzt (ein $7 \times 7$ Eigenwertproblem gemäß den damals 7 bekannten Planeten).\\
+
+\uline{Ziel des Jacobi-Verfahrens:}
+\begin{quote}
+Berechnung aller Eigenwerte (und ggf. auch Eigenvektoren) einer kleinen (dicht besetzten) symmetrischen Matrix.
+\end{quote}
+
+%\newpage
+
+\uline{Idee:}
+\begin{quote}
+Transformiere die symmetrische Matrix $A$ durch eine Folge von Ähnlichkeitstransformationen auf Diagonalgestalt. 
+Praktisch wird die Folge jedoch abgebrochen, falls der \textbf{Außendiagonalanteil}
+\begin{align*}
+  \off(B) := \sum\limits_{\substack{i,j=1\\ i \neq j}}^n b_{ij}^2
+\end{align*}
+der transformierten Matrix $B$ hinreichend klein ist.
+
+Die Eigenwerte von $B$ stimmen mit den Eigenwerten von $A$ überein. Gilt $\off(B) \leq \varepsilon^2$, so sind nach Satz \thref{satz:ewintervall}
+die Diagonalelemente von $B$ bis auf einen Fehler $\leq \varepsilon$ gleich den gesuchten Eigenwerten von $A$.
+\end{quote}
+
+\textbf{Ähnlichkeitstransformation:}
+\begin{align*}
+A \rightarrow B = J(k,l,\theta)^T \cdot A \cdot J(k,l,\theta)
+\end{align*}
+mit den \uline{Jacobi-Rotationen} (Givens\footnote{James Wallace Givens, Jr. (14. Dezember 1910 - 5. März 1993), US-Amerikanischer Mathematiker und Pionier der Informatik} Rotationen)
+\begin{align*}
+J(k,l,\theta) = & 
+\left(
+\begin{array}{ccccccccccc}
+1   &       &       &       &       &       &       &       &       &       & 0\\
+    &\ddots \\
+    &       & 1\\
+    &       &       & c     &       &       &       & s\\
+    &       &       &       & 1\\
+    &       &       &       &       &\ddots\\
+    &       &       &       &       &       & 1\\
+    &       &       & -s    &       &       &       & c\\
+    &       &       &       &       &       &       &       & 1\\
+    &       &       &       &       &       &       &       &       &\ddots\\
+0   &       &       &       &       &       &       &       &       &       & 1\\
+\end{array}
+\right)
+\begin{array}{c}
+ \\ \\ \\ k\\ \\ \\ \\ l\\ \\ \\ \\
+\end{array}
+\qquad
+\begin{array}{crl}
+\text{für} & k,l & \leq n\\
+ & c & = cos\ \theta\\
+ & s & = sin\ \theta
+\end{array}\\
+&
+\hspace*{4ex}
+\begin{array}{ccccccccccc}
+  \phantom{0} & \phantom{\dots} & \phantom{1} & k & \phantom{1} & \phantom{\dots} & \phantom{1} & l
+\end{array}
+\end{align*}
+Die Jacobi-Rotationen sind orthogonale Matrizen/Ebenendrehungen in der $(x_k,x_l)$ Ebene um den Winkel $\theta$.
+
+Die Abbildung $A \rightarrow B = J^T A J$ modifiziert nur die $k$-te und $l$-te Zeile sowie Spalte! Nur $4n-4$ Matrixelemente sind betroffen; \uline{Aufwand $O(n)$.}
+
+\newpage
+
+\begin{mysatz}
+Es gilt
+\begin{align*}
+  \off(B) = \off(A) - 2 a_{kl}^2 + 2b_{kl}^2 
+\end{align*}
+\textbf{Beweis:}
+Orthogonale Abbildungen erhalten die Euklidische Länge von Vektoren. Dies zeigt die orthogonale Invarianz der Frobeniusnorm im Sinne von
+\begin{align*}
+\|UAV\|_F = \|A\|_F
+\end{align*}
+für alle orthogonalen $U,V \in \R^{n \times n}$.
+
+Man erhält für die Jacobi-Transformation
+\begin{align*}
+  \off(B)   & = \|B\|_F^2 - \sum\limits_{\substack{i=k\\ i \neq k,l}}^n b_{ii}^2 - \left( b_{kk}^2 + b_{ll}^2 \right)\\
+            & = \|A\|_F^2 - \sum\limits_{\substack{i=k\\ i \neq k,l}}^n a_{ii}^2 - \left( b_{kk}^2 + b_{ll}^2 \right)\\
+            & = \off(A) + (a_{kk}^2 + a_{ll}^2) - (b_{kk}^2+b_{ll}^2)\label{eq:eq1}\tag{1}
+\end{align*}
+Weiter gilt
+\begin{align*}
+\begin{pmatrix}
+b_{kk} & b_{kl}\\
+b_{lk} & b_{ll}
+\end{pmatrix}
+& = 
+\begin{pmatrix}
+c & s\\
+-s & c
+\end{pmatrix}^T
+\begin{pmatrix}
+a_{kk} & a_{kl}\\
+a_{lk} & a_{ll}
+\end{pmatrix}
+\begin{pmatrix}
+c & s\\
+-s & c
+\end{pmatrix}
+\end{align*}
+sodann wiederum wegen der orthogonalen Invarianz der Frobeniusnorm zusammen mit der Symmetrie von $A$ und $B$
+\begin{align*}
+b_{kk}^2 + b_{ll}^2 + 2b_{kl}^2 & = a_{kk}^2 + a_{ll}^2 + 2a_{kl}^2
+\end{align*}
+folgt einesetzt in \eqref{eq:eq1} ergibt sich
+\begin{align*}
+\off(B) & = \off(A) - 2a_{kl}^2 + 2b_{kl}^2
+\end{align*}
+\end{mysatz}
+
+\uline{Ziel:} Durch Wahl des Drehwinkels $\theta$ erreiche $b_{kl}=0$ und damit die \textbf{größtmögliche Reduktion} von $\off(A)$.
 
 \begin{mysatz}
 (stabiler Formelsatz zur Berechnung von $c,s$)
 
 Ist $a_{kl} \neq 0$, so setze
-\[
+\begin{align*}
 \rho = \frac{a_{ll}-a{kk}}{2a_{kl}}
-\]
-Weiter sei (Rutisheimer 1971)
+\end{align*}
+Weiter sei (Rutishauser\footnote{Heinz Rutishauser (30. Januar 1918 - 10. November 1970), Schweizer Mathematiker und Pionier der modernen numerischen Mathematik und Informatik}, 1971)
+ 
 \begin{align*}
 t = 
 \begin{cases}
@@ -499,6 +662,9 @@ t =
 \frac{1}{\rho - \sqrt{1+\rho^2}} & \rho < 0\\
 \end{cases}
 \end{align*}
+und $c = \frac{1}{\sqrt{1+t^2}}, s=t \cdot  c$.\\
+
+Es gilt $c^2 + s^2 = 1$, also $c = \cos \theta$ und  $s = \sin \theta$ für ein $\theta \in \left[0,2 \pi \right]$ und außerdem $b_{kl} = 0$.
 \end{mysatz}
 
 
