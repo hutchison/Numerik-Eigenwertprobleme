@@ -80,7 +80,7 @@ ulem,
 
 % Randverwaltung (entweder geometry oder =fullpage=)
 %\usepackage[left=1cm,right=1cm,top=1cm,bottom=1cm,includeheadfoot]{geometry}
-\usepackage[cm,
+\usepackage[%cm,
 %headings,
 ]{fullpage}
 
@@ -176,7 +176,7 @@ Dabei ist $m_i$ die algebraische Vielfachheit von $\lambda_i$.\newline
   Die \textbf{geometrische Vielfachheit} eines Eigenwertes $\lambda$ von $A$ ist die Dimension des \textbf{Nullraumes} von $\lambda I -A$.
 \end{mydef}
 
-\newpage
+%\newpage
 
 \begin{mybem}
 Die geometrische Vielfachheit ist stets kleiner oder gleich der algebraischen Vielfachheit.
@@ -309,6 +309,7 @@ U_i & =
 \qquad
 \^U_i \text{ unitär}
 \end{align*}
+\
 \end{mysatz}
 
 Für normale Matrizen lässt sich mehr zeigen:
@@ -317,7 +318,7 @@ A \text{ normal} \Leftrightarrow A^HA = AA^H
 \end{align*}
 Zu den normalen Matrizen zählen die \textbf{hermiteschen/selbstadjungierten} Matrizen (d.h. $A^H = A$) und die reellen symmetrischen Matrizen.
 
-\begin{mysatz} (Hermite 1850\footnote{Charles Hermite (24. Dezember 1822 - 14. Januar 1901), französischer Mathematiker} - \textit{Spektralsatz})
+\begin{mysatz} (Hermite\footnote{Charles Hermite (24. Dezember 1822 - 14. Januar 1901), französischer Mathematiker} 1850 - \textit{Spektralsatz})
 
 Ist $A \in \C^{n \times n}$ normal, so gibt es eine unitäre Matrix $U$ mit
 \begin{align*}
@@ -331,7 +332,7 @@ U^H A U =
 \text{diag}(\lambda_1,\dots,\lambda_n)
 \end{align*}
 
-\newpage
+%\newpage
 
 \textbf{Beweis:}
 
@@ -387,6 +388,7 @@ Also gilt komponentenweise:
 \text{für } i=j=2: \qquad & |\lambda_2|^2 + |r_{23}|^2 + \dots + |r_{2n}|^2 = |\lambda_2|^2\\
 & \Rightarrow r_{23} = \dots = r_{2n} = 0 \qquad \text{ usw. usf.}
 \end{align*}
+\
 \end{mysatz}
 
 \subsection{Störungsempfindlichkeit des Eigenwertproblems}
@@ -442,9 +444,10 @@ Dann gibt es eine Permutation $i=\left\{ 1,\dots,n \right\} \mapsto \left\{ 1,\d
 \begin{align*}
 |\mu_{i(j)} - \lambda_j| \leq 4\left( \|A\|_2 + \|A+E\|_2 \right)^{1-\frac{1}{n}} \|E\|_2^{\frac{1}{n}}
 \end{align*}
+\
 \end{mysatz}
 
-\begin{mysatz} (Bauer\footnote{Friedrich Ludwig Bauer (10. Juni 1924 in Regensburg), deutscher Mathematiker und Pionier der Informatik}-Fike, 1960)
+\begin{mysatz} (Bauer\footnote{Friedrich Ludwig Bauer (10. Juni 1924), deutscher Mathematiker und Pionier der Informatik}-Fike, 1960)
 
 Ist $A$ diagonalisierbar, also
 \begin{align*}
@@ -474,6 +477,7 @@ mit dem Residuum $r = Ax - \mu x$.\\
 1 = \|x\|_2 & = \|(A -\mu I)^{-1} \cdot  (A - \mu I)x \|_2 \\
 & \leq \|(A - \mu I)^{-1}\|_2 \cdot  \underbrace{\|(A - \mu I)\|_2}_{\|r\|_2} = \frac{1}{\min\limits_{\lambda \in \sigma(A)} |\mu - \lambda|} \|r\|_2
 \end{align*}
+\
 \end{mysatz}
 
 \begin{mysatz}\label{satz:ewintervall}
@@ -495,6 +499,8 @@ Nach Satz \thref{satz:ewresiduum} gibt es einen Eigenwert $\mu$ von $A+E$ in ein
 
 Umkehrung durch Vertauschen von $A$ und $A+E$.
 \end{mysatz}
+
+\newpage
 
 \begin{mysatz}(Satz von Gerschgorin\footnote{Semjon Aranowitsch Gerschgorin (24. August 1901 - 30. Mai 1933), weißrussisch-sowjetischer Mathematiker})
 
@@ -526,7 +532,7 @@ Wegen $|x_j| \leq 1$ folgt
 so dass $\lambda \in \R$.
 \end{mysatz}
 
-\newpage
+%\newpage
 
 \subsection{Jacobi-Verfahren}
 \label{sub:Jacobi-Verfahren}
@@ -594,7 +600,7 @@ Die Jacobi-Rotationen sind orthogonale Matrizen/Ebenendrehungen in der $(x_k,x_l
 
 Die Abbildung $A \rightarrow B = J^T A J$ modifiziert nur die $k$-te und $l$-te Zeile sowie Spalte! Nur $4n-4$ Matrixelemente sind betroffen; \uline{Aufwand $O(n)$.}
 
-\newpage
+%\newpage
 
 \begin{mysatz}
 Es gilt
@@ -610,8 +616,8 @@ für alle orthogonalen $U,V \in \R^{n \times n}$.
 
 Man erhält für die Jacobi-Transformation
 \begin{align*}
-  \off(B)   & = \|B\|_F^2 - \sum\limits_{\substack{i=k\\ i \neq k,l}}^n b_{ii}^2 - \left( b_{kk}^2 + b_{ll}^2 \right)\\
-            & = \|A\|_F^2 - \sum\limits_{\substack{i=k\\ i \neq k,l}}^n a_{ii}^2 - \left( b_{kk}^2 + b_{ll}^2 \right)\\
+  \off(B)   & = \|B\|_F^2 - \sum\limits_{\substack{i=1\\ i \neq k,l}}^n b_{ii}^2 - \left( b_{kk}^2 + b_{ll}^2 \right)\\
+            & = \|A\|_F^2 - \sum\limits_{\substack{i=1\\ i \neq k,l}}^n a_{ii}^2 - \left( b_{kk}^2 + b_{ll}^2 \right)\\
             & = \off(A) + (a_{kk}^2 + a_{ll}^2) - (b_{kk}^2+b_{ll}^2)\label{eq:eq1}\tag{1}
 \end{align*}
 Weiter gilt
@@ -642,6 +648,7 @@ folgt einesetzt in \eqref{eq:eq1} ergibt sich
 \begin{align*}
 \off(B) & = \off(A) - 2a_{kl}^2 + 2b_{kl}^2
 \end{align*}
+\
 \end{mysatz}
 
 \uline{Ziel:} Durch Wahl des Drehwinkels $\theta$ erreiche $b_{kl}=0$ und damit die \textbf{größtmögliche Reduktion} von $\off(A)$.
@@ -665,8 +672,162 @@ t =
 und $c = \frac{1}{\sqrt{1+t^2}}, s=t \cdot  c$.\\
 
 Es gilt $c^2 + s^2 = 1$, also $c = \cos \theta$ und  $s = \sin \theta$ für ein $\theta \in \left[0,2 \pi \right]$ und außerdem $b_{kl} = 0$.
+
+\textbf{Beweis:}
+Es gilt
+\begin{align*}
+\begin{pmatrix}
+b_{kk} & b_{kl}\\
+b_{lk} & b_{ll}
+\end{pmatrix}
+& = 
+\begin{pmatrix}
+c & s\\
+-s & c
+\end{pmatrix}^T
+\begin{pmatrix}
+a_{kk} & a_{kl}\\
+a_{lk} & a_{ll}
+\end{pmatrix}
+\begin{pmatrix}
+c & s\\
+-s & c
+\end{pmatrix}
+\intertext{und wegen $a_{kl} = a_{lk}$ gilt falls $a_{kl} \neq 0$}
+b_{kl} & = a_{kl}(c^2 - s^2) + (a_{kk} - a_{ll})cs\\
+& = 2 c s a_{kl} \underbrace{\left( \frac{c^2 - s^2}{2cs} + \frac{a_{kk} - a_{ll}}{2a_{kl}} \right)}_{=0}
+\intertext{Um $b_{kl}=0$ zu erreichen, muss also gelten}
+\frac{c^2-s^2}{2cs} & = \frac{ \frac{1}{1+t^2} - \frac{t^2}{1+t^2} }{2 \frac{t}{\sqrt{1+t^2}} \cdot \frac{1}{\sqrt{1+t^2}}} = \frac{1-t^2}{2t} = \rho
+\end{align*}
+Also muss $t$ die Lösung der quadratischen Gleichung
+\begin{align*}
+t^2 + 2 \rho t - 1 = 0
+\end{align*}
+sein. Durch Einsetzen zeigt man sofort, dass $t$ in beiden Fällen $(\rho \geq 0 \text{ und } \rho < 0)$ die Gleichung erfüllt. Schließlich gilt
+\begin{align*}
+c^2 + s^2 = \frac{1}{1+t^2} + \frac{t^2}{1+t^2} = 1
+\end{align*}
+\
 \end{mysatz}
 
+\textit{Bemerkung:} Die Formeln von Satz 7.14 %TODO ref fixen
+für $c$ und $s$ erfordern nicht die teure Auswertung trigonometrischer Funktionen und sind im Hinblick auf Auslöschungseffekte stabil.
+
+%Fett:
+Varianten des Jacobi Verfahrens:
+\begin{enumerate}
+\item Klassisches Jacobi-Verfahren
+  %TODO: ordentlich machen:
+\begin{verbatim}
+while off(A) > eps^2
+    bestimme Indizes k,l mit |a_{kl}| = max_{i,j}_{i \neq j} |a_{i,j}|
+    ersetze A durch J^T A J mit J = J(k,l,\theta)
+end.
+\end{verbatim}
+$\to$ erfordert aufwändigen Suchprozess!
+
+Konvergenzverhalten: (Schönhagen 1964)
+
+Asymptotisch (für große $i$) \uline{quadratisch}
+
+\uline{Konvergenz}, d.h. für hinreichend großes $i$ gibt es eine Konstante $C=C(A)$ mit 
+\begin{align*}
+\off(A_{i+N} \leq C(\off(A_i))^2
+\end{align*}
+wobei $A = A_0,A_1,A_2, \dots $ die vom Jacobi-Prozess erzeugte Matrizen bezeichnen und $N = \frac{1}{2}n(n-1)$
+
+\item Zyklisches Jacobi-Verfahren %unterstrichen
+
+Durchlaufe die Indexpaare $(k,l)$ in fester Reihenfolge. Dies vermeidet den Suchprozess $\leadsto$ \uline{ähnliche Konvergenzeigenschaften.}
+\end{enumerate}
+
+\begin{mysatz}(Lineare Konvergenz)
+
+Sei $(A)_{i \in \mathbb{N}}$ mit $A_0 = A$ die vom klassischen Jacobi-Verfahren erzeugte Matrizenfolge und $N = \frac{1}{2} n (n-1)$. Dann gilt
+\begin{align*}
+\off(A_{i+1}) \leq \left( 1-\frac{1}{N} \right) \off(A_i)
+\end{align*}
+und noch einen vollen Zyklus ($N$ Schritte)
+\begin{align*}
+\off(A_{i+N}) \leq \frac{1}{e} \off(A_i)
+\end{align*}
+
+\textbf{Beweis:}
+Betrachte $A \to J^T A J$ und leite obere Abschätzung für $\off(J^t A J)$ her.
+
+Für das betragsgrößte Außerdiagonalelement gilt
+\begin{align*}
+  a_{kl}^2 = \max\limits_{i \neq j} a_{ij}^2
+\end{align*}
+Also gilt
+\begin{align*}
+\off(A) = \sum\limits_{i \neq j} a_{ij}^2 \leq 2 N \max\limits_{i \neq j} a_{ij}^2 = 2 N a_{kl}^2 %TODO tag als (1)
+\end{align*}
+da $A: n^2-n = 2N$ Außerdiagonalelemente besitzt.
+
+Es folgt
+\begin{align*}
+\off(J^T A J) = \off (A) - 2a_{kl}^2 \leq %hierüber Gleichung 1
+\left( 1 - \frac{1}{N} \right)\off(A)
+\intertext{oder gleichwertig für alle $i$}
+\off(A_{i+1} \leq \left( 1 - \frac{1}{N} \right)\off(A_i)
+\intertext{Also folgt}
+\off(A_{i+N}) \leq \left( 1 - \frac{1}{N} \right)^N \off (A_i)
+\end{align*}
+Mit $\left( 1-\frac{1}{N} \right)^N \leq e^{-1}$ folgt die Behauptung.
+\end{mysatz}
+
+\textit{Bemerkung:}
+\begin{quote}
+Eigenvektoren erhält man beim Jacobi-Verfahren aus dem Produkt aller planaren Drehungen
+\begin{align*}
+  A \to J_1^T A J_1 \to (J_1 J_2)^T A J_1 J_2 \to \dots \to \left( \prod\limits_{i=1}^k J_i \right)^T A \left( \prod\limits_{i=1}^k J_i \right)
+\end{align*}
+\end{quote}
+
+\subsection{Potenzmethode} % (fold)
+\label{sub:Potenzmethode}
+
+Oft benötigt man nicht alle, sondern nur wenige (betragsmäßig extremale) Eigenwerte und die zugehörigen Eigenvektoren. Durch \textbf{Vektoriterationen} können Näherungen gewonnen werden. 
+
+Berechne den betragsmäßig größten Eigenwert einer Matrix $A \in \R^{n \times n}$ (oder $\C^{n \times n}$) und den Eigenvektor.
+
+Betrachte dazu die Folge $\left( y^{(k)} \right)_{k \in \mathbb{N}}$ mit 
+\begin{align*}
+y^{(k+1)} = Ay^{(k)}
+\end{align*}
+also $y^{(k)} = A^k y^{(0)}$ zu einem Startvektor $y^{(0)}$.
+
+\begin{mysatz}
+
+Sei $A$ diagonalisierbar und besitze die Eigenpaare $(\lambda_i, x_i)$ mit $\|x_i\| = 1$ und 
+\begin{align*}
+|\lambda_1| \leq |\lambda_2| \dots |\lambda_{n-1}| < |\lambda_n|
+\end{align*}
+Falls $y^{(0)} = \sum\limits_{i=1}^n \alpha_i x_i$ mit $\alpha_n \neq 0$, so gilt für $y^{(k)} = Ay^{(k-1)}$
+\begin{enumerate}
+  \item $y^{(k)} = \lambda_n^k \left( \alpha_n x_n + O(\left| \frac{\lambda_{n-1}}{\lambda_n} \right|^k \right)$
+    Damit konvergiert $\frac{y^{(k)}}{\alpha_n \lambda_n^k}$ gegen den Eigenvektor $x_n$ von $A$.
+\item Für den Rayleigh-Quotienten $\rho(y^{(k)}$ gilt
+\begin{align*}
+\rho(y^{(k)}) & := \frac{\langle y^{(k)}, Ay^{(k)} \rangle}{\langle y^{(k)}, y^{(k)} \rangle} = \lambda_n + O\left( \left| \frac{\lambda_{n-1}}{\lambda_n} \right|^k\right)
+\intertext{und falls $A$ normale Matrizen}
+\rho(y^{(k)}) & = \lambda_n + O \left( \left| \frac{\lambda_{n-1}}{\lambda_n} \right|^{2k} \right)
+\end{align*}
+\end{enumerate}
+\textbf{Beweis:}
+\begin{enumerate}
+\item 
+\begin{align*}
+y^{(0)} & = \sum\limits_{i=1}^n \alpha_i x_i\\
+Ay^{(0)} & = \sum\limits_{i=1}^n (\alpha_i \lambda_i) x_i\\
+y^{(k)} & = A^k y^{(0)} = \sum\limits_{i=1}^n \alpha_i \lambda_i^k x_i\\
+& = \lambda_n^k \left( \uline{\left( \frac{\lambda_1}{\lambda_n} \right)}^k \alpha_1 x_1 + \dots +  \uline{\left( \frac{\lambda_{n-1}}{\lambda_n} \right)}^k \alpha_{n-1} x_{n-1} + \alpha_n x_n \right)
+\end{align*}
+\end{enumerate}
+\end{mysatz}
+
+% subsection Potenzmethode (end)
 
 % section Eigenwertprobleme (end)
 
