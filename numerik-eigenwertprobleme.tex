@@ -37,9 +37,14 @@ booktabs,
 caption,
 lineno,
 %lastpage,
-%algorithm,
+algorithmic,
+algorithm,
 ulem,
 }
+
+%schreibt "Algorithmus" statt "Algorithm":
+\floatname{algorithm}{Algorithmus}
+
 \usepackage{arydshln}
 
 \usepackage[amsmath,thmmarks,thref]{ntheorem}
@@ -146,7 +151,8 @@ jeweils mit Randberechnung wie $\left. u \right|_{\text{Rand}}=0$.\\
 \label{sub:Grundlagen}
 
 \begin{mydef}
-Sei $A \in \mathbb{C}^{n \times n}, x \in \mathbb{C}^n \backslash \left\{ 0 \right\}, \lambda \in \mathbb{C}$ und $Ax = \lambda x$. Dann heißt $x$ ein (Rechts-)\textbf{Eigenvektor} (EV) von $A$ zum \textbf{Eigenwert} (EW) $\lambda$ von $A$. Das Paar $(\lambda, x)$ heißt ein Eigenpaar von $A$. Die Menge aller Eigenwerte von $A$
+Sei $A \in \mathbb{C}^{n \times n}, x \in \mathbb{C}^n \backslash \left\{ 0 \right\}, \lambda \in \mathbb{C}$ und $Ax = \lambda x$. Dann heißt $x$ ein\\
+(Rechts-)\textbf{Eigenvektor} (EV) von $A$ zum \textbf{Eigenwert} (EW) $\lambda$ von $A$. Das Paar $(\lambda, x)$ heißt ein Eigenpaar von $A$. Die Menge aller Eigenwerte von $A$
 \begin{align*}
 \sigma(A) := \left\{ \lambda \ | \ \lambda \text{ ist Eigenwert von } A \right\}
 \end{align*}
@@ -221,13 +227,12 @@ Durch geeignete Nutzung der Freiheitsgrade erscheint es möglich, eine gegebene 
 
 
 Zu jeder komplexen Matrix $A \in \mathbb{C}^{n \times n}$ existiert eine unitäre Matrix $U \in \mathbb{C}^{n \times n}$, eine Diagonalmatrix 
-\begin{align*}
-D = \text{diag}(\lambda_1, \ldots, \lambda_n)
-\end{align*}
+%\begin{align*}
+$D = \text{diag}(\lambda_1, \ldots, \lambda_n)$
+%\end{align*}
 und eine (echte) obere Dreiecksmatrix mit verschwindenen Diagonalelementen, so dass 
 \begin{align*}
- & U^H A U = D + N \\
- \text{oder} \qquad & A = U(D+N)U^H
+ & U^H A U = D + N \qquad \text{ oder } \qquad A = U(D+N)U^H
 \end{align*}
 (Dabei ist $U^H = \overline{U}^T$, die zu $U$ \uline{adjungierte} Matrix; $U$ unitär: $\Leftrightarrow U^HU = I$.)\\
 
@@ -495,7 +500,7 @@ um einen Eigenwert $\lambda$ von $A$ auch einen Eigenwert $\mu$ von $A+E$ und um
 \begin{align*}
 \| (A+E)x - \lambda x \|_2 = \| (A+E)x - Ax \|_2 \leq \|E\|_2 \cdot \|x||_2 \leq \|E\|_F \cdot \|x\|_2
 \end{align*}
-Nach Satz \thref{satz:ewresiduum} gibt es einen Eigenwert $\mu$ von $A+E$ in einer $\varepsilon$-Umgebung von $\lambda$.
+Nach \thref{satz:ewresiduum} gibt es einen Eigenwert $\mu$ von $A+E$ in einer $\varepsilon$-Umgebung von $\lambda$.
 
 Umkehrung durch Vertauschen von $A$ und $A+E$.
 \end{mysatz}
@@ -544,7 +549,7 @@ so dass $\lambda \in \R$.
 Berechnung aller Eigenwerte (und ggf. auch Eigenvektoren) einer kleinen (dicht besetzten) symmetrischen Matrix.
 \end{quote}
 
-%\newpage
+\newpage
 
 \uline{Idee:}
 \begin{quote}
@@ -607,6 +612,9 @@ Es gilt
 \begin{align*}
   \off(B) = \off(A) - 2 a_{kl}^2 + 2b_{kl}^2 
 \end{align*}
+
+\newpage
+
 \textbf{Beweis:}
 Orthogonale Abbildungen erhalten die Euklidische Länge von Vektoren. Dies zeigt die orthogonale Invarianz der Frobeniusnorm im Sinne von
 \begin{align*}
@@ -653,7 +661,7 @@ folgt einesetzt in \eqref{eq:eq1} ergibt sich
 
 \uline{Ziel:} Durch Wahl des Drehwinkels $\theta$ erreiche $b_{kl}=0$ und damit die \textbf{größtmögliche Reduktion} von $\off(A)$.
 
-\begin{mysatz}
+\begin{mysatz}\label{satz:stabilerFormelsatzcs}
 (stabiler Formelsatz zur Berechnung von $c,s$)
 
 Ist $a_{kl} \neq 0$, so setze
@@ -671,7 +679,7 @@ t =
 \end{align*}
 und $c = \frac{1}{\sqrt{1+t^2}}, s=t \cdot  c$.\\
 
-Es gilt $c^2 + s^2 = 1$, also $c = \cos \theta$ und  $s = \sin \theta$ für ein $\theta \in \left[0,2 \pi \right]$ und außerdem $b_{kl} = 0$.
+Es gilt $c^2 + s^2 = 1$, also $c = \cos \theta$ und  $s = \sin \theta$ für ein $\theta \in \left[0,2 \pi \right)$ und außerdem $b_{kl} = 0$.
 
 \textbf{Beweis:}
 Es gilt
@@ -694,8 +702,8 @@ c & s\\
 -s & c
 \end{pmatrix}
 \intertext{und wegen $a_{kl} = a_{lk}$ gilt falls $a_{kl} \neq 0$}
-b_{kl} & = a_{kl}(c^2 - s^2) + (a_{kk} - a_{ll})cs\\
-& = 2 c s a_{kl} \underbrace{\left( \frac{c^2 - s^2}{2cs} + \frac{a_{kk} - a_{ll}}{2a_{kl}} \right)}_{=0}
+b_{kl} & = a_{kl}(c^2 - s^2) + (a_{kk} - a_{ll}) \cdot c \cdot s\\
+& = 2 \cdot c \cdot s \cdot a_{kl} \underbrace{\left( \frac{c^2 - s^2}{2cs} + \underbrace{\frac{a_{kk} - a_{ll}}{2a_{kl}}}_{=-\rho} \right)}_{=0}
 \intertext{Um $b_{kl}=0$ zu erreichen, muss also gelten}
 \frac{c^2-s^2}{2cs} & = \frac{ \frac{1}{1+t^2} - \frac{t^2}{1+t^2} }{2 \frac{t}{\sqrt{1+t^2}} \cdot \frac{1}{\sqrt{1+t^2}}} = \frac{1-t^2}{2t} = \rho
 \end{align*}
@@ -710,46 +718,49 @@ c^2 + s^2 = \frac{1}{1+t^2} + \frac{t^2}{1+t^2} = 1
 \
 \end{mysatz}
 
-\textit{Bemerkung:} Die Formeln von Satz 7.14 %TODO ref fixen
+\textit{Bemerkung:} Die Formeln von Satz \thref{satz:stabilerFormelsatzcs}
 für $c$ und $s$ erfordern nicht die teure Auswertung trigonometrischer Funktionen und sind im Hinblick auf Auslöschungseffekte stabil.
 
-%Fett:
-Varianten des Jacobi Verfahrens:
-\begin{enumerate}
-\item Klassisches Jacobi-Verfahren
-  %TODO: ordentlich machen:
-\begin{verbatim}
-while off(A) > eps^2
-    bestimme Indizes k,l mit |a_{kl}| = max_{i,j}_{i \neq j} |a_{i,j}|
-    ersetze A durch J^T A J mit J = J(k,l,\theta)
-end.
-\end{verbatim}
+\subsubsection*{Varianten des Jacobi Verfahrens}
+\label{ssub:Varianten des Jacobi Verfahrens}
+\begin{algorithm}
+\caption{Klassisches Jacobi-Verfahren}
+\begin{algorithmic}
+  \WHILE{$\off(A) > \varepsilon^2$}
+  \STATE bestimme Indizes $k,l$ mit $|a_{kl}| = \max\limits_{\substack{i,j\\ i \neq j}} |a_{ij}|$
+  \STATE $A \gets J^T A J$ mit $J := J(k,l,\theta)$
+  \ENDWHILE
+\end{algorithmic}
+\end{algorithm}
 $\to$ erfordert aufwändigen Suchprozess!
 
-Konvergenzverhalten: (Schönhagen 1964)
+\newpage
 
-Asymptotisch (für große $i$) \uline{quadratisch}
+\textbf{Konvergenzverhalten:} (Schönhagen 1964)
 
-\uline{Konvergenz}, d.h. für hinreichend großes $i$ gibt es eine Konstante $C=C(A)$ mit 
+Asymptotisch (für große $i$) \uline{quadratische Konvergenz}, d.h. für hinreichend großes $i$ gibt es eine Konstante $C=C(A)$ mit 
 \begin{align*}
 \off(A_{i+N} \leq C(\off(A_i))^2
 \end{align*}
-wobei $A = A_0,A_1,A_2, \dots $ die vom Jacobi-Prozess erzeugte Matrizen bezeichnen und $N = \frac{1}{2}n(n-1)$
+wobei $A = A_0,A_1,A_2, \dots $ die vom Jacobi-Prozess erzeugte Matrizen bezeichnen \\
+und $N = \frac{1}{2}n(n-1)$\\
 
-\item Zyklisches Jacobi-Verfahren %unterstrichen
+\textbf{Zyklisches Jacobi-Verfahren}
+\begin{itemize}
+    \item Durchlaufe die Indexpaare $(k,l)$ in fester Reihenfolge.  Dies vermeidet den Suchprozess 
+    \item[$\leadsto$] \uline{ähnliche Konvergenzeigenschaften.}
+\end{itemize}
 
-Durchlaufe die Indexpaare $(k,l)$ in fester Reihenfolge. Dies vermeidet den Suchprozess $\leadsto$ \uline{ähnliche Konvergenzeigenschaften.}
-\end{enumerate}
 
 \begin{mysatz}(Lineare Konvergenz)
 
-Sei $(A)_{i \in \mathbb{N}}$ mit $A_0 = A$ die vom klassischen Jacobi-Verfahren erzeugte Matrizenfolge und $N = \frac{1}{2} n (n-1)$. Dann gilt
+Sei $(A)_{i \in \mathbb{N}}$ mit $A_0 = A$ die vom klassischen Jacobi-Verfahren erzeugte Matrizenfolge und
+
+$N = \frac{1}{2} n (n-1)$. Dann gilt
 \begin{align*}
-\off(A_{i+1}) \leq \left( 1-\frac{1}{N} \right) \off(A_i)
-\end{align*}
-und noch einen vollen Zyklus ($N$ Schritte)
-\begin{align*}
-\off(A_{i+N}) \leq \frac{1}{e} \off(A_i)
+\off(A_{i+1}) & \leq \left( 1-\frac{1}{N} \right) \cdot  \off(A_i)
+\intertext{und noch einen vollen Zyklus ($N$ Schritte)}
+\off(A_{i+N}) & \leq \frac{1}{e} \off(A_i)
 \end{align*}
 
 \textbf{Beweis:}
@@ -757,35 +768,31 @@ Betrachte $A \to J^T A J$ und leite obere Abschätzung für $\off(J^t A J)$ her.
 
 Für das betragsgrößte Außerdiagonalelement gilt
 \begin{align*}
-  a_{kl}^2 = \max\limits_{i \neq j} a_{ij}^2
-\end{align*}
-Also gilt
-\begin{align*}
-\off(A) = \sum\limits_{i \neq j} a_{ij}^2 \leq 2 N \max\limits_{i \neq j} a_{ij}^2 = 2 N a_{kl}^2 %TODO tag als (1)
+a_{kl}^2 & = \max\limits_{i \neq j} a_{ij}^2
+\intertext{Also gilt}
+\off(A) & = \sum\limits_{i \neq j} a_{ij}^2 \leq 2 N \cdot \max\limits_{i \neq j} a_{ij}^2 = 2 N \cdot a_{kl}^2 \label{eq:eq2} \tag{1}
 \end{align*}
 da $A: n^2-n = 2N$ Außerdiagonalelemente besitzt.
 
 Es folgt
 \begin{align*}
-\off(J^T A J) = \off (A) - 2a_{kl}^2 \leq %hierüber Gleichung 1
-\left( 1 - \frac{1}{N} \right)\off(A)
+\off(J^T A J) & = \off (A) - 2a_{kl}^2 \stackrel{(\ref{eq:eq2})}\leq \left( 1 - \frac{1}{N} \right)\off(A)
 \intertext{oder gleichwertig für alle $i$}
-\off(A_{i+1} \leq \left( 1 - \frac{1}{N} \right)\off(A_i)
+\off(A_{i+1} & \leq \left( 1 - \frac{1}{N} \right) \cdot \off(A_i)
 \intertext{Also folgt}
-\off(A_{i+N}) \leq \left( 1 - \frac{1}{N} \right)^N \off (A_i)
+\off(A_{i+N}) & \leq \left( 1 - \frac{1}{N} \right)^N \cdot \off (A_i)
 \end{align*}
 Mit $\left( 1-\frac{1}{N} \right)^N \leq e^{-1}$ folgt die Behauptung.
 \end{mysatz}
 
 \textit{Bemerkung:}
-\begin{quote}
 Eigenvektoren erhält man beim Jacobi-Verfahren aus dem Produkt aller planaren Drehungen
 \begin{align*}
-  A \to J_1^T A J_1 \to (J_1 J_2)^T A J_1 J_2 \to \dots \to \left( \prod\limits_{i=1}^k J_i \right)^T A \left( \prod\limits_{i=1}^k J_i \right)
+  A \to J_1^T A J_1 \to (J_1 J_2)^T A J_1 J_2 \to \ldots \to \left( \prod\limits_{i=1}^k J_i \right)^T A \left( \prod\limits_{i=1}^k J_i \right)
 \end{align*}
-\end{quote}
+% subsubsection Varianten des Jacobi Verfahrens (end)
 
-\subsection{Potenzmethode} % (fold)
+\subsection{Potenzmethode}
 \label{sub:Potenzmethode}
 
 Oft benötigt man nicht alle, sondern nur wenige (betragsmäßig extremale) Eigenwerte und die zugehörigen Eigenvektoren. Durch \textbf{Vektoriterationen} können Näherungen gewonnen werden. 
@@ -804,17 +811,20 @@ Sei $A$ diagonalisierbar und besitze die Eigenpaare $(\lambda_i, x_i)$ mit $\|x_
 \begin{align*}
 |\lambda_1| \leq |\lambda_2| \dots |\lambda_{n-1}| < |\lambda_n|
 \end{align*}
-Falls $y^{(0)} = \sum\limits_{i=1}^n \alpha_i x_i$ mit $\alpha_n \neq 0$, so gilt für $y^{(k)} = Ay^{(k-1)}$
+Falls $y^{(0)} = \sum\limits_{i=1}^n \alpha_i x_i$ mit $\alpha_n \neq 0$, so gilt für die $k$-te Iterierte $y^{(k)} = Ay^{(k-1)}$
 \begin{enumerate}
-  \item $y^{(k)} = \lambda_n^k \left( \alpha_n x_n + O(\left| \frac{\lambda_{n-1}}{\lambda_n} \right|^k \right)$
-    Damit konvergiert $\frac{y^{(k)}}{\alpha_n \lambda_n^k}$ gegen den Eigenvektor $x_n$ von $A$.
-\item Für den Rayleigh-Quotienten $\rho(y^{(k)}$ gilt
-\begin{align*}
-\rho(y^{(k)}) & := \frac{\langle y^{(k)}, Ay^{(k)} \rangle}{\langle y^{(k)}, y^{(k)} \rangle} = \lambda_n + O\left( \left| \frac{\lambda_{n-1}}{\lambda_n} \right|^k\right)
-\intertext{und falls $A$ normale Matrizen}
-\rho(y^{(k)}) & = \lambda_n + O \left( \left| \frac{\lambda_{n-1}}{\lambda_n} \right|^{2k} \right)
-\end{align*}
+  \item $y^{(k)} = \lambda_n^k \left( \alpha_n x_n + O\left( \left| \frac{\lambda_{n-1}}{\lambda_n} \right|^k \right) \right)$
+    Damit konvergiert $\frac{y^{(k)}}{\alpha_n \lambda_n^k}$ gegen den EV $x_n$ von $A$.
+  \item Für den \textbf{Rayleigh-Quotienten}\footnote{nach John William Strutt, 3. Baron Rayleigh (12. November 1842 - 30. Juni 1919), englischer Physiker und Nobelpreisträger für Physik} $\rho\left( y^{(k)} \right)$ gilt
+    \begin{align*}
+     \rho\left( y^{(k)} \right) & := \frac{\langle y^{(k)}, Ay^{(k)} \rangle}{\langle y^{(k)}, y^{(k)} \rangle} = \lambda_n + O\left( \left| \frac{\lambda_{n-1}}{\lambda_n} \right|^k\right)
+    \intertext{und falls $A$ normale Matrix}
+     \rho\left( y^{(k)} \right) & = \lambda_n + O \left( \left| \frac{\lambda_{n-1}}{\lambda_n} \right|^{2k} \right)
+  \end{align*}
 \end{enumerate}
+
+\newpage
+
 \textbf{Beweis:}
 \begin{enumerate}
 \item 
@@ -824,8 +834,61 @@ Ay^{(0)} & = \sum\limits_{i=1}^n (\alpha_i \lambda_i) x_i\\
 y^{(k)} & = A^k y^{(0)} = \sum\limits_{i=1}^n \alpha_i \lambda_i^k x_i\\
 & = \lambda_n^k \left( \uline{\left( \frac{\lambda_1}{\lambda_n} \right)}^k \alpha_1 x_1 + \dots +  \uline{\left( \frac{\lambda_{n-1}}{\lambda_n} \right)}^k \alpha_{n-1} x_{n-1} + \alpha_n x_n \right)
 \end{align*}
+\item
+\begin{align*}
+  \left( y^{(k)} \right)^H y^{(k)} & = \left( \sum\limits_{i=1}^n \alpha_i \lambda_i^k x_i \right)^H \sum\limits_{i=1}^n \alpha_i \lambda_i^k x_i\\
+  & = |\alpha_1|^2 |\lambda_1|^2 \underbrace{x_1^H x_1}_{=1} \ + \ \overline{\alpha_1} \alpha_2 \overline{\lambda_1}^k \lambda_2 \underbrace{x_1^H x_2}_{=0\text{, falls $A$ normal}} \ + \ \ldots\\
+  & + \overline{\alpha_n} \lambda_n^k \lambda_1^k \underbrace{x_n^H x_2}_{=0\text{, falls $A$ normal}} \ + \ \ldots \ + |\alpha_n|^2 |\lambda_n|^{2k} \underbrace{x_1^Hx_n}_{=1}\\
+  \left( y^{(k)} \right)^H A y^{(k)} & = \left( y^{(k)} \right)^H A y^{(k+1)} = |\alpha_1|^2 |\lambda_1|^{2k} \lambda_1 x_1^H x_1 + \ldots + \ldots \\
+   & + \overline{\alpha_n} \alpha_1 \overline{\lambda_n}^k \lambda_1^{k+1} x_1^H x_1 + \ldots + |\alpha_n|^2 |\lambda_n|^{2k} \lambda_n x_1^H x_n
+\end{align*}
+Somit:
+\begin{align*}
+\rho\left( y^{(k)} \right) & = \frac{\left( y^{(k)} \right)^H Ay^{(k)}}{\left( y^{(k)} \right)^H y^{(k)}} 
+    = \frac{|\alpha_n|^2|\lambda_n|^{2k} \lambda_1 \left( 1 + O \left( \left| \frac{\lambda_{n-1}}{n} \right|^k \right) \right)}{|\alpha_n|^2|\lambda_n|^{2k} \left( 1 + O \left( \left| \frac{\lambda_{n-1}}{n} \right|^k \right) \right)}\\
+    & = \lambda_n + O\left( \left| \frac{\lambda_{n-1}}{\lambda_n} \right|^k \right)
+\end{align*}
+Ist $A$ normal $x_i^H x_j = \delta_{ij}$, so gilt \hfill (zur Erinnerung: $\delta_{ij} = $ \textit{Kronecker-Delta})\footnote{$\delta_{ij} = \left\{\begin{matrix} 1 & \mbox{falls } i=j \\ 0 & \mbox{falls } i \neq j \end{matrix}\right.$}
+\begin{align*}
+  \rho\left( y^{(k)} \right) & = \lambda_n + O \left( \left| \frac{\lambda_{n-1}}{\lambda_n} \right|^{2k} \right)
+\end{align*}
 \end{enumerate}
 \end{mysatz}
+
+\textit{Bemerkung:} Praktisch vermeidet man einen Überlauf indem die Iterierten normiert werden.
+
+\newpage
+
+\begin{algorithm}
+\caption{Potenzmethode}
+\begin{algorithmic}
+  \STATE $y^{(0)}$ gegeben
+  \REPEAT
+    \STATE $\tilde{y}^{(k+1)} \gets Ay^{(k)}$
+    \STATE $y^{(k+1)} \gets \frac{\tilde{y}^{(k+1)}}{\left\| \tilde{y}^{(k+1)} \right\|}$ 
+  \UNTIL{$\left\| Ay^{(k)} - \rho\left( y^{(k)}\right) y^{(k)} \right\|_2$ hinreichend klein}
+\end{algorithmic}
+\end{algorithm}
+$\to$ langsame Konvergenz, falls $\frac{\lambda_{n-1}}{\lambda_n} \approx 1$\\
+
+\textbf{Variante zur Berechnung des betragskleinsten Eigenwertes:} \hfill ($A$ regulär)
+
+\begin{itemize}
+    \item wende die Potenzmethode auf $A^{-1}$ an
+    \item nutze LR-Zerlegung zur Lösung der auftretenden Gleichungssysteme
+      \begin{align*}
+        A \tilde{y}^{(k+1)} & = y^{(k)}\\
+        \intertext{wird gelöst mit}
+        Lz & = y^{(k)}\\
+        R \tilde{y}^{(k+1)} & = z
+      \end{align*}
+\end{itemize}
+
+\textbf{Inverse Vektoriteration:}
+\begin{itemize}
+    \item wende Potenzmethode auf $\left( A - \mu I \right)^{-1} = z$ an
+    \item[$\leadsto$] liefert Eigenwert nahe $\mu$
+\end{itemize}
 
 % subsection Potenzmethode (end)
 
